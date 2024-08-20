@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-  document.getElementById('report-button').addEventListener('click', function () {
+  document.getElementById('return-button').addEventListener('click', function () {
       const urlParams = new URLSearchParams(window.location.search);
       const originalUrl = urlParams.get('originalUrl');
 
@@ -26,6 +26,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (originalUrl) {
         window.location.href = decodeURIComponent(originalUrl);
     } else {
+        chrome.storage.sync.set({blocked: true}); 
         window.history.back();
     }
   });

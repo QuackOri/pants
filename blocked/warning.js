@@ -8,12 +8,22 @@ if (!redirectedTabs.includes(tabID)) {
     redirectedTabs.push(tabID);
     localStorage.setItem("redirectedTabs", JSON.stringify(redirectedTabs));
     
-    setTimeout(() => {
-        chrome.storage.sync.set({blocked: false}); 
-        if (originalUrl) {
-            window.location.href = decodeURIComponent(originalUrl);
-        } else {
-            window.history.back();
+    let countdown = 2;
+    const countdownElement = document.getElementById('countdown');
+
+    const interval = setInterval(() => {
+        countdownElement.innerText = `${countdown}초 후에 원래 페이지로 돌아갑니다.`;
+        countdown--;
+        
+        if (countdown < 0) {
+            clearInterval(interval);
+            chrome.storage.sync.set({blocked: false}); 
+            if (originalUrl) {
+                window.location.href = decodeURIComponent(originalUrl);
+            } else {
+                chrome.storage.sync.set({blocked: true}); 
+                window.history.back();
+            }
         }
-    }, 3000);
+    }, 1000);
 }
