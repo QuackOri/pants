@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
     
     chrome.storage.sync.get(['enabled', 'threshold'], function(data) {
         const isEnabled = data.enabled || true;
-        const threshold = data.threshold !== undefined ? data.threshold : 50;
+        const threshold = data.threshold !== undefined ? data.threshold : 70;
 
         updateToggleState(isEnabled);
         updateSlider(threshold);
@@ -60,36 +60,3 @@ document.addEventListener('DOMContentLoaded', function () {
         sliderValue.textContent = Math.round(value) + '%';
     }
 });
-
-// const sliderContainer = document.getElementById('sliderContainer');
-// const slider = document.getElementById('slider');
-// const sliderHandle = document.getElementById('sliderHandle');
-// const sliderValue = document.getElementById('sliderValue');
-
-// let isDragging = false;
-
-// function updateSliderValue(clientY) {
-//     const rect = sliderContainer.getBoundingClientRect();
-//     const containerHeight = rect.height;
-//     const offsetY = Math.min(Math.max(0, rect.bottom - clientY), containerHeight);
-//     const percentage = (offsetY / containerHeight) * 100;
-
-//     slider.style.height = percentage + '%';
-//     sliderValue.textContent = Math.round(percentage) + '%';
-// }
-
-// sliderHandle.addEventListener('mousedown', (e) => {
-//     isDragging = true;
-//     document.body.style.userSelect = 'none'; // 드래그 중 텍스트 선택 비활성화
-// });
-
-// document.addEventListener('mousemove', (e) => {
-//     if (isDragging) {
-//         updateSliderValue(e.clientY);
-//     }
-// });
-
-// document.addEventListener('mouseup', () => {
-//     isDragging = false;
-//     document.body.style.userSelect = ''; // 드래그 종료 후 텍스트 선택 활성화
-// });

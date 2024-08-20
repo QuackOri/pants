@@ -19,8 +19,14 @@ document.addEventListener('DOMContentLoaded', function () {
       });
   });
 
-  // "Return Page" 버튼 클릭 시 이전 페이지로 돌아가기
   document.getElementById('return-button').addEventListener('click', function () {
-      window.history.back();
+    const urlParams = new URLSearchParams(window.location.search);
+    const originalUrl = urlParams.get('originalUrl');
+    chrome.storage.sync.set({blocked: false}); 
+    if (originalUrl) {
+        window.location.href = decodeURIComponent(originalUrl);
+    } else {
+        window.history.back();
+    }
   });
 });
