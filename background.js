@@ -21,7 +21,7 @@ function sendToServer(url, htmlContent, tabId) {
   .then(response => response.json())
   .then(data => {
       console.log('Success:', data);
-      if (data[2] === false) {
+      if (data[2] === true) {
         chrome.tabs.get(tabId, (tab) => {
             if (chrome.runtime.lastError || !tab) {
                 console.error('탭이 존재하지 않거나 오류가 발생했습니다:', chrome.runtime.lastError);
