@@ -21,7 +21,6 @@ if (!redirectedTabs.includes(tabID)) {
             if (originalUrl) {
                 window.location.href = decodeURIComponent(originalUrl);
             } else {
-                chrome.storage.sync.set({blocked: true}); 
                 window.history.back();
             }
         }
