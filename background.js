@@ -29,7 +29,7 @@ function sendToServer(url, htmlContent, tabId) {
           const threshold = result.threshold;
           const site_threshold = data[1]
           // 배열 1번 값이 임계값보다 낮은 경우
-          if ((site_threshold * 100) < threshold) {
+          if ((site_threshold * 100) > threshold) {
               console.log("res",(site_threshold * 100));
               console.log("thr", threshold);
               // blocked.html로 리디렉션
