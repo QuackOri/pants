@@ -60,3 +60,27 @@ document.addEventListener('DOMContentLoaded', function () {
         sliderValue.textContent = Math.round(value) + '%';
     }
 });
+
+document.getElementById('report-button').addEventListener('click', function() {
+    const currentUrl = window.location.href;
+    const serverUrl = 'http://uskawjdu.iptime.org:8080/postUrl';
+    
+    fetch(serverUrl, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ url: currentUrl })
+    })
+    .then(response => {
+        if (response.ok) {
+            alert('신고가 전송되었습니다.');
+        } else {
+            alert('신고 전송에 실패했습니다.');
+        }
+    })
+    .catch(error => {
+        console.error('오류 발생:', error);
+        alert('신고 전송 중 오류가 발생했습니다.');
+    });
+});
