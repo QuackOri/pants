@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blocked</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+        }
+        h1 {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>This page has been blocked!</h1>
+    <p>The site you attempted to visit has been identified as potentially harmful.</p>
+    <p>If you believe this is a mistake, you can report the page.</p>
+    <button id="report-button">return page</button>
+
+    <script>
+        document.getElementById('report-button').addEventListener('click', function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const originalUrl = urlParams.get('originalUrl');
+
+            fetch('http://uskawjdu.iptime.org:8080/report', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ url: originalUrl })
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert('The site has been reported.');
+            })
+            .catch(error => {
+                console.error('Error reporting the site:', error.message);
+            });
+        });
+    </script>
+</body>
+</html>
