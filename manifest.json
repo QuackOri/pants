@@ -3,7 +3,7 @@
     "name": "Pants",
     "version": "1.0",
     "description": "Detect and report phishing and illegal websites.",
-    "permissions": ["storage", "activeTab"],
+    "permissions": ["storage", "activeTab", "scripting"],
     "action": {
         "default_popup": "popup/popup.html",
         "default_icon": {
