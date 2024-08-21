@@ -101,6 +101,14 @@
             text-align: center;
         }
 
+        #predictedValue {
+            position:absolute;
+            top: 110px;
+            left: 20px;
+            font-size: 60px;
+            font-weight: 700;
+        }
+
         #toggle-container {
             display: flex;
             justify-content: center;
@@ -109,8 +117,8 @@
         }
         #toggle-switch {
             position: absolute;
-            top: 230px;
-            left: 75px;
+            top: 280px;
+            left: 130px;
             width: 80px;
             height: 40px;
             background-color: #ccc;
@@ -137,16 +145,24 @@
         }
         #toggle-label {
             position: absolute;
-            top: 300px;
-            left: 70px;
+            top: 280px;
+            left: 10px;
             margin-left: 10px;
-            font-size: 16px;
-            color: #333;
+            font-size: 25px;
+            color: #fff;
+        }
+        #button-label {
+            position: absolute;
+            top: 345px;
+            left: 8px;
+            font-size: 15px;
+            font-weight: 700;
+            color: black;
         }
         #report-button {
             position: absolute;
             top: 355px;
-            left: 190px;
+            left: 200px;
             width: 80px;
             height: 30px;
             background-color: #e74c3c;
@@ -183,6 +199,7 @@
         <div id="toggle-switch"></div>
         <span id="toggle-label">Disabled</span>
     </div>
+    <p id="button-label">현재 사이트가 의심된다면?</p>
     <button id="report-button">신고하기</button>
     <script src="popup.js"></script>
 </body>
