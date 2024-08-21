@@ -1,6 +1,21 @@
 chrome.runtime.onInstalled.addListener(() => {
+    // chrome.storage.sync.get(['threshold'], (result) => {
+    //     if (result.threshold == undefined) {
+    //         chrome.storage.sync.set({ threshold: 70});
+    //     }
+    // });
+    // chrome.storage.sync.get(['enabled'], (result) => {
+    //     if (result.enabled == undefined) {
+    //         chrome.storage.sync.set({enabled: true});
+    //     }
+    // });
+    // chrome.storage.sync.get(['blocked'], (result) => {
+    //     if (result.blocked == undefined) {
+    //         chrome.storage.sync.set({blocked: true});
+    //     }
+    // });
   chrome.storage.sync.set({ threshold: 70, enabled: true, blocked: true }, () => {
-      console.log("Extension installed: default threshold is 50% and enabled.");
+    console.log("Extension installed: default threshold is 70% and enabled.");
   });
 });
 

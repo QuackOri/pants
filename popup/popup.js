@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const sliderValue = document.getElementById('sliderValue');
     
     chrome.storage.sync.get(['enabled', 'threshold'], function(data) {
-        const isEnabled = data.enabled || true;
+        const isEnabled = data.enabled !== undefined ? data.enabled : true;
         const threshold = data.threshold !== undefined ? data.threshold : 70;
 
         updateToggleState(isEnabled);
@@ -15,12 +15,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // 스위치 클릭 시 상태 변경
     toggleSwitch.addEventListener('click', function () {
-        const isEnabled = !toggleSwitch.classList.contains('on');
-        chrome.storage.sync.set({ enabled: isEnabled }, function () {
-            console.log('Button is ' + (isEnabled ? 'enabled' : 'disabled'));
-            updateToggleState(isEnabled);
+        chrome.storage.sync.get(['enabled'], function(data) {
+            const isEnabled = data.enabled !== undefined ? data.enabled : true;
+            const newIsEnabled = !isEnabled;
+            chrome.storage.sync.set({ enabled: newIsEnabled }, function() {
+                console.log('Button is ' + (newIsEnabled ? 'enabled' : 'disabled'));
+                updateToggleState(newIsEnabled);
+            });
         });
-        //chrome.runtime.sendMessage({ enabled: isEnabled });
     });
 
     slider.addEventListener('mousedown', function (e) {
