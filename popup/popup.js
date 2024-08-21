@@ -20,16 +20,6 @@ document.addEventListener('DOMContentLoaded', function () {
         updateSlider(threshold);
     });
 
-    // chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
-    //     if (message.action == 'updatePrediction') {
-    //         console.log(message.value);
-    //         const predictedValue = message.value;
-    //         const resultElement = document.getElementById('predictedValue');
-    //         resultElement.textContent = `${predictedValue}%`;
-    //     }
-    // });
-
-    // 스위치 클릭 시 상태 변경
     toggleSwitch.addEventListener('click', function () {
         chrome.storage.sync.get(['enabled'], function(data) {
             const isEnabled = data.enabled !== undefined ? data.enabled : true;

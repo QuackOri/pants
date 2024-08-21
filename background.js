@@ -39,7 +39,7 @@ function sendToServer(url, htmlContent, tabId) {
                     chrome.tabs.update(tabId, { url: chrome.runtime.getURL('blocked/blocked.html') + '?originalUrl=' + encodeURIComponent(url) });
                 }
             });
-        } else if (data[2] === false) {
+        } else if (data[2] === true) {
             chrome.tabs.get(tabId, (tab) => {
                 if (chrome.runtime.lastError || !tab) {
                     console.error('탭이 존재하지 않거나 오류가 발생했습니다:', chrome.runtime.lastError);
@@ -49,33 +49,6 @@ function sendToServer(url, htmlContent, tabId) {
             });
         }
     });
-
-    //   if (data[2] === false) {
-    //     chrome.tabs.get(tabId, (tab) => {
-    //         if (chrome.runtime.lastError || !tab) {
-    //             console.error('탭이 존재하지 않거나 오류가 발생했습니다:', chrome.runtime.lastError);
-    //         } else {
-    //             chrome.tabs.update(tabId, { url: chrome.runtime.getURL('blocked/warning.html') });
-    //         }
-    //       });
-    //   } else {
-    //     chrome.storage.sync.get(['threshold'], (result) => {
-    //         const threshold = result.threshold;
-    //         const site_threshold = data[1];
-    //         if ((site_threshold * 100) > threshold) {
-    //             console.log("res", (site_threshold * 100));
-    //             console.log("thr", threshold);
-                
-    //             chrome.tabs.get(tabId, (tab) => {
-    //                 if (chrome.runtime.lastError || !tab) {
-    //                     console.error('탭이 존재하지 않거나 오류가 발생했습니다:', chrome.runtime.lastError);
-    //                 } else {
-    //                     chrome.tabs.update(tabId, { url: chrome.runtime.getURL('blocked/blocked.html') + '?originalUrl=' + encodeURIComponent(url) });
-    //                 }
-    //             });
-    //         }
-    //     });
-    //   }
   })
   .catch((error) => console.error('Error:', error));
 }
