@@ -4,7 +4,14 @@ document.addEventListener('DOMContentLoaded', function () {
     const toggleLabel = document.getElementById('toggle-label');
     const slider = document.getElementById('slider');
     const sliderValue = document.getElementById('sliderValue');
+    const reportButton = document.getElementById('report-button');
     
+    chrome.storage.local.get(['predictedValue'], function(result) {
+        const predictedValue = result.predictedValue || '0.0';
+        const resultElement = document.getElementById('predictedValue');
+        resultElement.textContent = `${predictedValue}%`;
+    });
+
     chrome.storage.sync.get(['enabled', 'threshold'], function(data) {
         const isEnabled = data.enabled !== undefined ? data.enabled : true;
         const threshold = data.threshold !== undefined ? data.threshold : 70;
@@ -13,14 +20,14 @@ document.addEventListener('DOMContentLoaded', function () {
         updateSlider(threshold);
     });
 
-    chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
-        if (message.action == 'updatePrediction') {
-            console.log(message.value);
-            const predictedValue = message.value;
-            const resultElement = document.getElementById('predictedValue');
-            resultElement.textContent = `${predictedValue}%`;
-        }
-    });
+    // chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
+    //     if (message.action == 'updatePrediction') {
+    //         console.log(message.value);
+    //         const predictedValue = message.value;
+    //         const resultElement = document.getElementById('predictedValue');
+    //         resultElement.textContent = `${predictedValue}%`;
+    //     }
+    // });
 
     // 스위치 클릭 시 상태 변경
     toggleSwitch.addEventListener('click', function () {
@@ -37,6 +44,30 @@ document.addEventListener('DOMContentLoaded', function () {
     slider.addEventListener('mousedown', function (e) {
         document.addEventListener('mousemove', onMouseMove);
         document.addEventListener('mouseup', onMouseUp);
+    });
+
+    reportButton.addEventListener('click', function() {
+        const currentUrl = window.location.href;
+        const serverUrl = 'http://uskawjdu.iptime.org:8080/postUrl';
+
+        fetch(serverUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ url: currentUrl })
+        })
+        .then(response => {
+            if (response.ok) {
+                alert('신고가 전송되었습니다.');
+            } else {
+                alert('신고 전송에 실패했습니다.');
+            }
+        })
+        .catch(error => {
+            console.error('오류 발생:', error);
+            alert('신고 전송 중 오류가 발생했습니다.');
+        });
     });
 
     function onMouseMove(e) {

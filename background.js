@@ -23,7 +23,8 @@ function sendToServer(url, htmlContent, tabId) {
         console.log('Success:', data);
 
         const predictedValue = (data[1] * 100).toFixed(1);
-        chrome.runtime.sendMessage({ action: 'updatePrediction', value: predictedValue });
+        //chrome.runtime.sendMessage({ action: 'updatePrediction', value: predictedValue });
+        chrome.storage.local.set({ predictedValue: predictedValue });
         console.log('after send');
     
         chrome.storage.sync.get(['threshold'], (result) => {
